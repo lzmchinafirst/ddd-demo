@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bootstrap of purang</title>
+    <script src="/js/bill/jquery.min.js"></script>
+</head>
+<body style="overflow:auto;">
+<div id="billMenu" class="col-sm-1">
+
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: '/bill/fastlink/order_list_pc.html',
+            type: 'post',
+            data: JSON.stringify({'startTime': 20211020}),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                console.log(result);
+            }
+        });
+    });
+</script>
+</body>
+</html>

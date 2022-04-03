@@ -1,0 +1,183 @@
+spring:
+  application:
+    name: bill-manifest-service
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: false
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+        filter:
+          stat:
+            merge-sql: true
+            log-slow-sql: true
+            slow-sql-millis: 2000
+      primary: master
+      datasource:
+        master:
+          url: jdbc:mysql://10.10.64.114:3306/pbq?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowMultiQueries=true&useSSL=false
+          username: root
+          password: purangdev
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave:
+          url: jdbc:mysql://10.10.64.113:3306/pbq?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+          username: pbqdevread
+          password: onlyread
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 0
+    host: 10.10.64.110
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    port: 6379
+    timeout: 10000
+  session:
+    store-type: redis
+    redis:
+      flush-mode: immediate
+      namespace: PROXY:SESSION
+  velocity:
+    charset: UTF-8
+    properties:
+      input:
+        encoding: UTF-8
+      output:
+        encoding: UTF-8
+    resourceLoaderPath: classpath:/template/
+    suffix: .vm
+    expose-request-attributes: true
+    expose-session-attributes: true
+    allow-request-override: true
+    allow-session-override: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server:
+  port: 8001
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.purang.manifest.infrastructure.repo.po,com.purang.manifest.adapter.dto
+  global-config:
+    banner: false
+    db-config:
+      id-type: ASSIGN_ID
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    jdbc-type-for-null: null
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+logging:
+  level:
+    com.purang.manifest.infrastructure.repo.dao: debug
+
+fdfs:
+  connect-timeout: 600
+  server: http://webproxydev.purang.com:8089/
+  so-timeout: 1500
+  thumb-image:
+    height: 150
+    width: 150
+  tracker-list: 10.10.64.112:22122
+
+proxy:
+  kafka:
+    topicGroupId: bill_proxy
+    writeResultTopic: persist_ret
+    zkPath: 10.10.64.110:2181
+    billNotifyTopic: mq_bill
+  route:
+    connectTimeout: 10000
+    host: 10.10.64.110:2181
+    mappingPath: /urlmapping
+    path: /devversion
+  pbq:
+    debug: false
+
+login:
+  context: bill
+
+kafka:
+  consumer:
+    auto:
+      commit:
+        interval: 1000
+      offset:
+        reset: latest
+    concurrency: 2
+    enable:
+      auto:
+        commit: true
+    group:
+      id: bill-consumer-group
+    max-poll-records: 1000
+    servers: 127.0.0.1:9092
+    topic:
+      bill-manifest-service: bill-manifest-service
+  max:
+    request:
+      size: 5242880
+  producer:
+    batch:
+      size: 5242880
+    buffer:
+      memory: 33554432
+    linger: 60000
+    retries: 0
+    servers: 127.0.0.1:9092
+  request:
+    timeout:
+      ms: 300000
+
+system:
+  unique:
+    id: 10
+
+crm-customer-service:
+  host: 10.10.29.26:8002
+
+ocr:
+  url: http://10.10.64.125:8088/ocr/bill.htm
+  invoice_url: http://10.10.64.125:8088/ocr/invoice.htm
+  sign_type: 1
+  sp_no: 100007
+  sign_secret: u80JYp#=sX@9n2-
+  request_timeout: 3000
+  connect_timeout: 3000
+  read_timeout: 60000
+  sleep_time: 60
+  channel: 1
+
+access:
+  secret: Knqa!c+uDW8Yg2#TPGEEgUa@Y7ciIncR
+
+track-server:
+  url: http://10.10.64.108:8011
+
+#分布式唯一主键索引号，不能大于32
+uniqueId:
+  index: 1

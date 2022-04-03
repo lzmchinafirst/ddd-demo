@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.purang.manifest.infrastructure.repo.dao.deliver.DeliverManifestInfoDao">
+    <select id="selectTicketsByDeliverManifestId" resultType="com.purang.manifest.adapter.dto.DeliverManifestTicketVo">
+        SELECT `tenant_id`                     AS tenantId,
+               `ticket_type`                   AS ticketType,
+               `ticket_type_name`              AS ticketTypeName,
+               `media_type`                    AS mediaType,
+               `media_type_name`               AS mediaTypeName,
+               `ticket_no`                     AS ticketNo,
+               `ticket_status`                 AS ticketStatus,
+               `drawer`,
+               `drawer_account_no`             AS drawerAccountNo,
+               `drawer_open_account_bank`      AS drawerOpenAccountBank,
+               `payee`,
+               `payee_account_no`              AS payeeAccountNo,
+               `payee_open_account_bank`       AS payeeOpenAccountBank,
+               `acceptor`,
+               `acceptor_account_no`           AS acceptorAccountNo,
+               `acceptor_open_account_bank`    AS acceptorOpenAccountBank,
+               `acceptor_open_account_bank_no` AS acceptorOpenAccountBankNo,
+               `issue_date`                    AS issueDate,
+               `expire_date`                   AS expireDate,
+               `can_transfer`                  AS canTransfer
+        FROM `bill_out_manifest_ticket` omt
+        INNER JOIN `bill_ticket_pool` t ON t.`id` = omt.`ticket_id`
+        where omt.out_manifest_id = #{deliverManifestId}
+    </select>
+
+    <select id="selectDeliverManifestDetail" resultType="com.purang.manifest.adapter.dto.DeliverManifestDetailVo">
+        SELECT a.id,
+               a.business_no             AS businessNo,
+               a.manifest_type           AS manifestType,
+               a.ticket_type             AS ticketType,
+               a.ticket_source           AS ticketSource,
+               a.ticket_num              AS ticketNum,
+               a.uniform_interest_type   AS uniformInterestType,
+               a.uniform_quote_price     AS uniformQuotePrice,
+               a.holder_cost_total       AS holderCostTotal,
+               a.receive_money_total     AS receiveMoneyTotal,
+               a.pay_type                AS payType,
+               a.remarks                 AS remarks,
+               a.`sender_user_name`      AS senderUserName,
+               a.`sender_company_name`   AS senderCompanyName,
+               i.`receiver_user_name`    AS receiverUserName,
+               i.`receiver_company_name` AS receiverCompanyName
+        FROM `bill_out_stock_manifest` a
+        LEFT JOIN `bill_stock_manifest_relation` r ON r.`stock_out_flow_id` = a.`id` AND r.`is_confirm_deal` = 1
+        LEFT JOIN `bill_in_stock_manifest` i ON i.`id` = r.`in_stock_manifest_id`
+        WHERE a.id = #{deliverManifestId}
+    </select>
+</mapper>

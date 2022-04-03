@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <link href="/css/bill/login/login.css" rel="stylesheet">
+</head>
+<body>
+<OBJECT ID="atx" WIDTH="0" HEIGHT="0" CLASSID="CLSID:4C5D3971-3460-460A-9BC8-6F0D388F8964" codeBase="pbqocx.ocx"></OBJECT>    
+<div class="box">
+    <div class="top">
+        <h2>金融村</h2>
+    </div>
+<form  id="loginForm" action="/${loginContext}/login.htm" autocomplete="off" method="post"> 
+    <div class="login">
+        <div class="line">
+            <label>登录账户</label>
+            <input type="text" id="userName" name="userName" placeholder="请输入您绑定的手机">
+            <input id="source" name="source"  type="hidden"/>
+            <div class="error" id="userNameTips"></div>
+        </div>
+        <div class="line">
+            <label>密码</label>
+            <input type="password" id="password" name="password" placeholder="请输入您的密码">
+            <a href="forgetpasswd.htm">忘记密码？</a>
+            <div class="error" id="passwordTips"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <label>登录类型</label>
+            <input  id="loginType1" type="radio" name="loginType" value="1" checked>内部
+            <input  id="loginType2" type="radio" name="loginType" value="2">外部
+        </div>
+
+        <a href="#" class="btn-login">登录</a>
+    </div>
+</form>   
+</div>
+
+<script src="/js/bill/jquery.min.js"></script>
+<script>
+function getQuerystring(key, default_,parameter)
+{
+    if (default_==null)
+    {
+        default_="";
+    }
+    var search = unescape(parameter);
+    if (search == "")
+    {
+        return default_;
+    }
+    return search.substr(8);
+
+    search = search.substr(1);
+    var params = search.split("&");
+    for (var i = 0; i < params.length; i++)
+    {
+        var pairs = params[i].split("=");
+        if(pairs[0] == key)
+        {
+            return pairs[1];
+        }
+    }
+    return default_;
+}
+$(document).ready(function(){
+	$("#source").val(getQuerystring('source','',window.location.search));
+	var atx=document.getElementById('atx');
+	try{
+	  	var userName = atx.GetUserName();
+		var computerId = atx.GetComputeID();
+		$("#r").val(r);
+    	if(userName!=''){
+    		$("#userName").val(userName);
+    	};
+	}catch(error){
+		console.log(error);
+	}
+
+	});
+$(".btn-login").click(function () {
+   if($("#userName").val()==''){
+	   $("#userNameTips").html("请输入登录账户");
+	   return;
+   }else{
+	   $("#userNameTips").html("");
+   }
+   if($("#password").val()==''){
+	   $("#passwordTips").html("请输入密码");
+	   return;
+   }else{
+	   $("#passwordTips").html("");
+   }
+   $("#loginForm").submit();
+})
+
+</script>
+</body>
+</html>

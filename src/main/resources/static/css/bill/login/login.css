@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'ZCOOL-Kuaile';
+    src: url('/css/bill/fonts/ZCOOL-Kuaile.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body{
+    font-family:  'microsoft yahei', '微软雅黑';
+}
+
+/*重置样式*/
+
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,
+img, ins, kbd, q, s, samp, small, strike, strong, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    font-family:  'microsoft yahei', '微软雅黑';
+}
+
+button {
+    outline: 0;
+    border-style: none;
+}
+html, body {
+    font-size: 14px;
+    min-width: 1076px;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote::before, blockquote::after, q:before, q:after {
+    content: none;
+}
+table {
+    border-collapse: collapse; border-spacing: 0;
+}
+i{
+    font-style: normal;
+}
+.fl{
+    float:left;
+}
+.fr{
+    float:right;
+}
+.clear{
+    clear:both;
+}
+.none{
+    display:none;
+}
+
+
+/*公共样式*/
+body{
+    display: inline-block;
+    width:100vw;
+    min-height:100vh;
+    background:#3a3e4e no-repeat bottom center;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color: #c7c7cc;}
+　　input:-moz-placeholder, textarea:-moz-placeholder {color:#c7c7cc;}
+　　input::-moz-placeholder, textarea::-moz-placeholder {color:#c7c7cc;}
+　　input:-ms-input-placeholder, textarea:-ms-input-placeholder {color:#c7c7cc;}
+
+
+/*公共*/
+.box{
+    width:480px;
+    height:auto;
+    margin:140px auto 0;
+    padding-bottom:70px;
+    border-radius:3px;
+    overflow: hidden;
+}
+/*top*/
+.box .top{
+    width: 480px;
+    height: 70px;
+    margin:0 auto;
+    background-color:#5b5e6c;
+    border-radius:2px;
+}
+.box .top img{
+    float: left;
+    width:30px;
+    height:30px;
+    margin:20px auto 20px 160px;
+}
+.box .top h2{
+    line-height: 70px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #8d8d8d;
+    text-align: center;
+}
+/*login*/
+/*表单*/
+.box .login{
+    width: 480px;
+    height:auto;
+    margin:0 auto;
+    padding:40px 0;
+    background-color:#E6E6EB;
+    border-radius:2px;
+}
+.box .login .line{
+    width:100%;
+    height:auto;
+}
+.login .line label{
+    display: inline-block;
+    width:180px;
+    height:34px;
+    line-height:34px;
+    font-size:14px;
+    color:#8d8d8d;
+    text-align: right;
+}
+.login .line input{
+    width:164px;
+    height:32px;
+    margin-left:5px;
+    padding:0 5px;
+    line-height:32px;
+    font-size:14px;
+    color:#8d8d8d;
+    text-align: left;
+    border:1px solid #d1d1d6;
+    background-color:#E6E6EB;
+    border-radius: 2px;
+}
+.login .line a{
+    font-size: 12px;
+    color: #34aadc;
+}
+/*错误提示*/
+.line .error{
+    width: 360px;
+    height: 26px;
+    line-height:26px;
+    font-size: 10px;
+    text-align: right;
+    color: #ff6666;
+}
+.login .btn-login{
+    display:block;
+    width: 279px;
+    height: 43px;
+    margin:16px auto 0;
+    line-height: 43px;
+    color:white;
+    text-align: center;
+    text-decoration: none;
+    background-color: #339966;
+}

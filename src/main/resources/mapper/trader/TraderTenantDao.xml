@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.purang.manifest.infrastructure.repo.dao.trader.TraderTenantDao">
+    <select id="selectTraderTenantByTraderId" resultType="com.purang.manifest.adapter.dto.TraderTenantVo">
+        SELECT u.`id`                AS Id,
+               u.`user_name`         AS userName,
+               u.`post_code`         AS postCode,
+               u.`post_name`         AS postName,
+               u.`mobile`            AS mobile,
+               t.`id`                AS tenantId,
+               t.`company_name`      AS companyName,
+               t.`bank_account_no`   AS bankAccountNo,
+               t.`open_account_bank` AS openAccountBank,
+               t.`big_line_no`       AS bigLineNo
+        FROM `bill_trader` u
+                 INNER JOIN `bill_tenant` t ON t.`id` = u.`company_id`
+        where u.id = #{traderId}
+    </select>
+
+    <select id="selectTraderTenantListByTraderIdList" resultType="com.purang.manifest.adapter.dto.TraderTenantVo">
+        SELECT u.`id` AS Id,
+        u.`user_name` AS userName,
+        u.`post_code` AS postCode,
+        u.`post_name` AS postName,
+        u.`mobile` AS mobile,
+        t.`id` AS tenantId,
+        t.`company_name` AS companyName,
+        t.`bank_account_no` AS bankAccountNo,
+        t.`open_account_bank` AS openAccountBank,
+        t.`big_line_no` AS bigLineNo
+        FROM `bill_trader` u
+        INNER JOIN `bill_tenant` t ON t.`id` = u.`company_id`
+        <where>
+            u.id in
+            <foreach item="item" index="index" collection="traderIdList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+</mapper>
